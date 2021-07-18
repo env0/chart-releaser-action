@@ -18,8 +18,10 @@ runs:
   using: composite
   steps:
     - run: |
-        owner=$(cut -d '/' -f 1 <<< "$GITHUB_REPOSITORY")
-        repo=$(cut -d '/' -f 2 <<< "$GITHUB_REPOSITORY")
+        GITHUB_OWNER=$(cut -d '/' -f 1 <<< "$GITHUB_REPOSITORY")
+        GITHUB_REPO=$(cut -d '/' -f 2 <<< "$GITHUB_REPOSITORY")
+        owner="${CR_OWNER:GITHUB_OWNER}"
+        repo="${CR_REPO:GITHUB_REPO}"
 
         args=(--owner "$owner" --repo "$repo")
         args+=(--charts-dir "${{ inputs.charts_dir }}")
