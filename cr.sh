@@ -246,7 +246,9 @@ package_chart() {
 }
 
 release_charts() {
-    local args=(-o "$owner" -r "$repo" -c "$(git rev-parse HEAD)")
+    GIT_COMMIT=$(git rev-parse HEAD)
+    commit="${CR_COMMIT:$GIT_COMMIT}" 
+    local args=(-o "$owner" -r "$repo" -c "$commit")
     if [[ -n "$config" ]]; then
         args+=(--config "$config")
     fi
