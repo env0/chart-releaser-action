@@ -133,6 +133,7 @@ parse_command_line() {
                 ;;
             -o|--owner)
                 if [[ -n "${2:-}" ]]; then
+                    echo "owner=$2"
                     owner="$2"
                     shift
                 else
@@ -143,6 +144,7 @@ parse_command_line() {
                 ;;
             -r|--repo)
                 if [[ -n "${2:-}" ]]; then
+                    echo "repo=$2"                
                     repo="$2"
                     shift
                 else
@@ -239,7 +241,7 @@ package_chart() {
         args+=(--config "$config")
     fi
 
-    echo "Packaging chart '$chart'..."
+    echo "Packaging chart '$chart' with args: ${args[@]}..."
     cr package "${args[@]}"
 }
 
@@ -249,7 +251,7 @@ release_charts() {
         args+=(--config "$config")
     fi
 
-    echo 'Releasing charts...'
+    echo 'Releasing charts with args: ${args[@]}...'
     cr upload "${args[@]}"
 }
 
